@@ -25,7 +25,7 @@ export default function LoginPage({ setToken }) {
           const response = await fetch (`${BASE_URL}/users/register`
         
           )}
-        }
+        finally 
         const login = async () => {
       try {
         const response = await fetch(`${BASE_URL}/users/login`, 
