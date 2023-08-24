@@ -1,13 +1,30 @@
 import { useState } from "react";
 
+
 export default function CreatePosts() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [location, setLocation] = useState("");
   const [willDeliver, setWillDeliver] = useState(false);
+ 
+    async function handleSubmit(e) {
+      e.preventDefault()
+      const createPosts = {post:{
+        title:title,
+        description:description,
+        price:price,
+        location:location,
+        willDeliver:willDeliver
+      }}
+      await createPosts()
+      await fetchPosts()
+      setShowForm(false)
+  }
+
   return (
-    <form>
+          
+    <form onSubmit={handleSubmit}>
       <label htmlFor="title">Title</label>
       <input
         type="text"
@@ -60,7 +77,7 @@ export default function CreatePosts() {
       value={username}
       onChange={(e) => setPassword(e.target.value)}
     />
-    <button type="submit">Register</button>
+    <button type="submit">Create Posts</button>
   </form>
   );
 }
