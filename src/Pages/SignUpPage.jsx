@@ -14,37 +14,36 @@ export default function SignupPage({ setToken }) {
 
   const navigate = useNavigate()
   async function submitForm(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (password.length < 8) {
       setErrorMessage("Password is too short");
     } else {
-        const signUp = async () => {
-            try {
-                const response = await fetch(`${BASE_URL}/users/register`, 
-                    { 
-                      method: "POST", 
-                      headers: { 
-                        "Content-Type": "application/json" 
-                      }, 
-                      body: JSON.stringify({ 
-                        user: {
-                              username, 
-                              password 
-                        }
-                      }) 
-                    })
-                    const result = await response.json();
-                    const { token } = result.data
-                    console.log(result)
-                    localStorage.setItem('token', token);
-                    setToken(token)
-                    navigate('/ProfilePage')
-            } catch (err) {
-                setError(err.message);
-            }
+      const signUp = async () => {
+        try {
+          const response = await fetch(`${BASE_URL}/users/register`, 
+            { 
+              method: "POST", 
+              headers: { 
+                "Content-Type": "application/json" 
+              }, 
+              body: JSON.stringify({ 
+                user: {
+                  username, 
+                  password 
+                }
+              }) 
+            })
+          const result = await response.json();
+          const { token } = result.data;
+          console.log(result);
+          localStorage.setItem('token', token);
+          setToken(token);
+          navigate('/ProfilePage');
+        } catch (err) {
+          setErrorMessage(err.message);
         }
-        Signup();
-        
+      }
+      signUp();
     }
   }
   return (
