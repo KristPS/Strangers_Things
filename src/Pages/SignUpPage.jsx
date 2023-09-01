@@ -3,8 +3,8 @@ import AuthForm from '../Components/AuthForm';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 
-const COHORT_NAME='2302-acc-et-web-pt-a'
-const BASE_URL=`https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
+//const COHORT_NAME='2302-acc-et-web-pt-a'
+//const BASE_URL=`https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
 
 export default function SignupPage({ setToken }) {
   //Sign up for an account with username and password
