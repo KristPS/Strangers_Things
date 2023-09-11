@@ -1,12 +1,34 @@
-import { useState, useContext } from 'react';
-import { Context } from '../ContextStore';
-import { loginUser } from '../services/userData'
+import { useState, useEffect } from 'react';
+import { Login } from './Pages/Login'
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SimpleSider from '../components/Siders/SimpleSider';
 
-// const COHORT_NAME = "2302-acc-et-web-pt-a"
-// const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
+ const COHORT_NAME = "2302-acc-et-web-pt-a"
+ const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
+
+ const login = async () => {
+
+    try {
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            username: '',
+            password: ''
+          }
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
 function Login({ history }) {
   const [loading, setLoading] = useState(false);
@@ -43,7 +65,7 @@ function Login({ history }) {
       <>
           <SimpleSider />
           <div className="container auth-form">
-              <h1 className="auth-heading">Sign In</h1>
+              <h1 className="auth-heading">Login</h1>
               <Form className="col-lg-6" onSubmit={handleSubmitLogin}>
                   {alertShow &&
                       <Alert variant="danger" onClose={() => setAlertShow(false)} dismissible>
@@ -65,13 +87,13 @@ function Login({ history }) {
                           Please wait... <Spinner animation="border" />
                       </Button>
                       :
-                      <Button variant="dark" className="col-lg-12 btnAuth" type="submit">Sign In</Button>
+                      <Button variant="dark" className="col-lg-12 btnAuth" type="submit">Login</Button>
                   }
-                  <p className="bottom-msg-paragraph">Don't have an account? <Link to="/auth/register">Sign Up</Link>!</p>
+                  <p className="bottom-msg-paragraph">Don't have an account? <Link to="/auth/register">Register</Link>!</p>
               </Form>
           </div>
       </>
   )
 }
 
-export default Login;
+export default function Login
