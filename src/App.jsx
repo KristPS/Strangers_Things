@@ -1,23 +1,31 @@
-import { useState } from "react";
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Posts from "./Pages/Posts";
-import Profile from "./Pages/Profile";
 import Login from "./Pages/Login";
-import SignUpPage from "./Pages/SignUpPage";
+import Register from "./Pages/Register";
+import LogOut from "./Pages/LogOut";
+import Users_Me from "./Pages/Users_Me";
+import CreatePost from "./Pages/CreatePosts";
+import AllPosts from "./Pages/AllPostsCard";
+import EditPost from "./Pages/EditPost";
+import DeletePost from "./Pages/DeletePostCard";
 import NavBar from "./Components/NavBar";
-import './App.css';
+import { useState } from "react";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   return (
     <div>
-      <NavBar token={token} setToken={setToken}/>
+      <NavBar token={token} setToken={setToken} />
+
       <Routes>
-        <Route path="/posts" element={<Posts token={token} />} />
-        <Route path="/profile" element={<Profile token={token} />} />
-        <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route path="/signup" element={<SignUp setToken={setToken} />} />
+        <Route path="/auth/login" exact element={<Login />} />
+        <Route path="/auth/register" exact element={<Register />} />
+        <Route path="/auth/logout" exact element={<LogOut />} />
+        <Route path="/profile/:id/delete" exact element={<DeletePost />} />
+        <Route path="/profile/:id/edit" exact element={<EditPost />} />
+        <Route path="/profile/:id" exact element={<Users_Me />} />
+        <Route path="/profile/createPost" exact element={<CreatePost />} />
+        <Route path="/allPosts" exact element={<AllPosts />} />
       </Routes>
     </div>
   );
