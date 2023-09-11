@@ -1,29 +1,64 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { createNewPost } from "../api"; 
+import { fetchNewPost } from "../api"; 
 
+const COHORT_NAME = '2302-acc-et-web-pt-a';
+const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
+const POSTS = `${BASE_URL}/posts`;
 
-export default function CreatePosts() {
+export async function createNewPostAPI(newPost, token) {
+  try {
+    const response = await fetch(POSTS, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ post: newPost })
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export default function CreateNewPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [location, setLocation] = useState("");
   const [willDeliver, setWillDeliver] = useState(false);
- 
-    async function handleSubmit(e) {
-      e.preventDefault()
-      const createPosts = {post:{
-        title:title,
-        description:description,
-        price:price,
-        location:location,
-        willDeliver:willDeliver
-      }}
-      await createPosts()
-      await fetchPosts()
-      setShowForm(false)
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const newPost = {
+      title: title,
+      description: description,
+      price: price,
+      location: location,
+      willDeliver: willDeliver,
+    };
+
+    // Call the createPost function to create a new post
+    await createNewPost(newPost);
+
+
+    // Fetch the updated list of posts after creating a new one
+    await fetchNewPost();
+
+
+    // Reset form inputs and hide the form
+    setTitle("");
+    setDescription("");
+    setPrice(0);
+    setLocation("");
+    setWillDeliver(false);
+    
   }
 
   return (
-          
     <form onSubmit={handleSubmit}>
       <label htmlFor="title">Title</label>
       <input
@@ -55,29 +90,12 @@ export default function CreatePosts() {
       />
       <label htmlFor="willDeliver">Will Deliver</label>
       <input
-        type="text"
+        type="checkbox"
         id="willDeliver"
-        value={willDeliver}
-        onChange={(e) => setWillDeliver(e.target.value)}
+        checked={willDeliver}
+        onChange={(e) => setWillDeliver(e.target.checked)}
       />
-      <button type="submit">Create Post</button>
-    
-    
-    <label htmlFor="username">Username</label>
-    <input
-      type="text"
-      id="username"
-      value={username}
-      onChange={(e) => setUsername(e.target.value)}
-    />
-    <label htmlFor="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      value={username}
-      onChange={(e) => setPassword(e.target.value)}
-    />
-    <button type="submit">Create Posts</button>
-  </form>
+      <button type="submit">Create New Post</button>
+    </form>
   );
 }
