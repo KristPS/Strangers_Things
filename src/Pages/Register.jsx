@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import SimpleSider from '../components/Siders/SimpleSider';
 
 
 const COHORT_NAME = "2302-acc-et-web-pt-a";
@@ -63,7 +61,7 @@ export default function Register({ history }) {
 
   return (
     <>
-      <SimpleSider />
+      
       <div className="container auth-form">
         <h1 className="auth-heading">Register</h1>
         <Form className="col-lg-8" onSubmit={handleSubmitReg}>

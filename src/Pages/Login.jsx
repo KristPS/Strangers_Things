@@ -1,34 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Login } from './Pages/Login'
 import { Form, Button, Spinner, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import SimpleSider from '../components/Siders/SimpleSider';
+
 
  const COHORT_NAME = "2302-acc-et-web-pt-a"
  const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`
 
- const login = async () => {
-
-    try {
-      const response = await fetch(`${BASE_URL}/users/login`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            username: '',
-            password: ''
-          }
-        })
-      });
-      const result = await response.json();
-      console.log(result);
-      return result
-    } catch (err) {
-      console.error(err);
-    }
-  }
+ 
 
 function Login({ history }) {
   const [loading, setLoading] = useState(false);
@@ -61,9 +39,32 @@ function Login({ history }) {
           }).catch(err => console.error('error from login: ', err))
   }
 
+  const loginUser = async () => {
+
+    try {
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            username: '',
+            password: ''
+          }
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
       <>
-          <SimpleSider />
+          
           <div className="container auth-form">
               <h1 className="auth-heading">Login</h1>
               <Form className="col-lg-6" onSubmit={handleSubmitLogin}>
@@ -96,4 +97,4 @@ function Login({ history }) {
   )
 }
 
-export default function Login
+export default Login

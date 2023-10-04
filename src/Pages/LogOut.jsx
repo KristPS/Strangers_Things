@@ -1,28 +1,25 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-
-async function performLogout() {
-  try {
-    const response = await fetch("/auth/logout");
-    if (response.ok) {
-      // Logout was successful
-      history.push("/");
-    } else {
-      // Logout failed
-      console.error("Logout failed.");
-    }
-  } catch (err) {
-    // Handle other errors
-    console.error("An error occurred while logging out:", err);
-  }
-}
+//import { useHistory } from "react-router-dom";
 
 export default function LogOut() {
-  const history = useHistory();
+  //const history = useHistory();
 
   const handleLogout = async () => {
     await performLogout();
   };
+
+  async function performLogout() {
+    try {
+      const response = await fetch("/auth/logout");
+      if (response.ok) {
+        //history.push("/");
+      } else {
+        console.error("Logout failed.");
+      }
+    } catch (err) {
+      console.error("An error occurred while logging out:", err);
+    }
+  }
 
   return (
     <div>
@@ -30,6 +27,5 @@ export default function LogOut() {
     </div>
   );
 }
-
 
   

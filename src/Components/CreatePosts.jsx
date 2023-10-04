@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { createNewPost } from "../api"; 
-import { fetchNewPost } from "../api"; 
+
+import { fetchNewPost, createNewPost } from "../API"; 
 
 const COHORT_NAME = '2302-acc-et-web-pt-a';
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;

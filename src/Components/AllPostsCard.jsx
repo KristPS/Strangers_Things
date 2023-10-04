@@ -1,4 +1,4 @@
-import { createNewPost, deletePost, updatePost } from `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
+
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -37,6 +37,16 @@ export default function AllPostsCard({ post, token, fetchAllPosts }) {
     } catch (error) {
       console.error('Failed to create a new post:', error);
     }
+  }
+
+  const createNewPost = async (newPost, token) => {
+
+  }
+  const updatePost = async (post, id, token) => {
+
+  }
+  const deletePost = async (id, token) => {
+
   }
 
   return (

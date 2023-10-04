@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { deletePost, fetchAllPosts } from 'https://strangers-things.herokuapp.com/api/posts'; 
-import SendMessage from './SendMessage'; 
+import { deletePost, fetchAllPosts } from '../API'; 
+ 
 
 
 const COHORT_NAME = '2302-acc-et-web-pt-a';
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
-export default function DeletePost({ post, token, fetchPosts, currentUser }) {
+export default function DeletePostCard({ post, token, fetchPosts, currentUser }) {
   const { _id, title, author, location, price, messages } = post;
   const [showMessageForm, setShowMessageForm] = useState(false);
 
@@ -41,14 +41,14 @@ export default function DeletePost({ post, token, fetchPosts, currentUser }) {
         <button onClick={() => handleDeleteClick()}>Delete Post</button>
       )}
 
-      {showMessageForm && (
+      {/*showMessageForm && (
         <SendMessage
           post={post}
           token={token}
           fetchPosts={fetchPosts}
           setShowMessageForm={setShowMessageForm}
         />
-      )}
+      )*/}
     </div>
   );
 }
